@@ -24,7 +24,7 @@ Since understanding `titleGrob()` requires understanding some of the `grid` grap
 p
 ```
 
-<img src="figs/grid-debugging-tools-1.svg" width="80%" style="display: block; margin: auto;" />
+<img src="figs/grid-debugging-tools-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 ## Grid debugging tools
@@ -37,13 +37,13 @@ grid.ls()
 showGrob()
 ```
 
-<img src="figs/grid-debugging-tools-2.svg" width="80%" style="display: block; margin: auto;" />
+<img src="figs/grid-debugging-tools-2.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 gridTree()
 ```
 
-<img src="figs/grid-debugging-tools-3.svg" width="80%" style="display: block; margin: auto;" />
+<img src="figs/grid-debugging-tools-3.png" width="80%" style="display: block; margin: auto;" />
 
 `element_text()` also has a `debug = TRUE` argument.
 
@@ -57,7 +57,7 @@ p +
   )
 ```
 
-<img src="figs/debug-true-1.svg" width="80%" style="display: block; margin: auto;" />
+<img src="figs/debug-true-1.png" width="80%" style="display: block; margin: auto;" />
 
 titleGrob() definition
 ----------------------
@@ -300,13 +300,13 @@ gp <- gpar(fontsize = 20)
 display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, gp = gp)
 ```
 
-<img src="figs/display-titlegrob-1.svg" width="50%" style="display: block; margin: auto;" />
+<img src="figs/display-titlegrob-1.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
 display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, angle = 45, gp = gp)
 ```
 
-<img src="figs/display-titlegrob-2.svg" width="50%" style="display: block; margin: auto;" />
+<img src="figs/display-titlegrob-2.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
 ## Add expand_x and expand_y and view showGrob() overlay
@@ -314,22 +314,22 @@ display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, expand_x = TRUE,
            expand_y = TRUE, margin = margin(3, 3, 3, 3), gp = gp)
 ```
 
-<img src="figs/display-titlegrob-3.svg" width="50%" style="display: block; margin: auto;" />
+<img src="figs/display-titlegrob-3.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
 showGrob(gPath = "titleGrob", grep = TRUE)
 ```
 
-<img src="figs/display-titlegrob-4.svg" width="50%" style="display: block; margin: auto;" />
+<img src="figs/display-titlegrob-4.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
 grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.3958
-    ##   GRID.VP.724
-    ##     GRID.VP.725
-    ##       GRID.titleGrob.3957
-    ##         GRID.text.3956
+    ##   GRID.rect.4363
+    ##   GRID.VP.792
+    ##     GRID.VP.793
+    ##       GRID.titleGrob.4362
+    ##         GRID.text.4361
     ##       2
