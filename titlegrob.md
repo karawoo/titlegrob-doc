@@ -1,7 +1,7 @@
 titleGrob()
 ================
 Kara Woo
-11 July, 2017
+12 July, 2017
 
 ``` r
 library("grid")
@@ -24,7 +24,7 @@ Since understanding `titleGrob()` requires understanding some of the `grid` grap
 p
 ```
 
-<img src="figs/grid-debugging-tools-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/grid-debugging-tools-1.svg" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 ## Grid debugging tools
@@ -37,13 +37,13 @@ grid.ls()
 showGrob()
 ```
 
-<img src="figs/grid-debugging-tools-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/grid-debugging-tools-2.svg" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 gridTree()
 ```
 
-<img src="figs/grid-debugging-tools-3.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/grid-debugging-tools-3.svg" width="80%" style="display: block; margin: auto;" />
 
 `element_text()` also has a `debug = TRUE` argument.
 
@@ -57,7 +57,7 @@ p +
   )
 ```
 
-<img src="figs/debug-true-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/debug-true-1.svg" width="80%" style="display: block; margin: auto;" />
 
 titleGrob() definition
 ----------------------
