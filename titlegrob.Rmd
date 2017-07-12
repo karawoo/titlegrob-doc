@@ -285,3 +285,30 @@ A lot of current issues relate to the margins around text elements:
 -   [1892 - vjust not working in x facets](https://github.com/tidyverse/ggplot2/issues/1892)
 -   [1903 - Length of legend title affects justification of legend keys/labels?](https://github.com/tidyverse/ggplot2/issues/1903)
 
+## titleGrob experiments
+
+```{r tg-helper-fun}
+## Helper function for displaying titleGrob
+display_tg <- function(label, x, y, ...) {
+  tg <- ggplot2:::titleGrob(label, x, y, ...)
+  grid.newpage()
+  grid.rect()
+  grid.draw(tg)
+}
+```
+
+Let's look at some `titleGrob()`s
+
+```{r display-titlegrob, out.width = "50%"}
+gp <- gpar(fontsize = 20)
+
+## First some simple titleGrobs
+display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, gp = gp)
+display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, angle = 45, gp = gp)
+
+## Add expand_x and expand_y and view showGrob() overlay
+display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, expand_x = TRUE,
+           expand_y = TRUE, margin = margin(3, 3, 3, 3), gp = gp)
+showGrob(gPath = "titleGrob", grep = TRUE)
+grid.ls(viewports = TRUE, fullnames = TRUE)
+```

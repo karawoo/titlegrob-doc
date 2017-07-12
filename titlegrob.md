@@ -277,3 +277,59 @@ A lot of current issues relate to the margins around text elements:
 -   [1887 - Margins don't affect strip.text](https://github.com/tidyverse/ggplot2/issues/1887)
 -   [1892 - vjust not working in x facets](https://github.com/tidyverse/ggplot2/issues/1892)
 -   [1903 - Length of legend title affects justification of legend keys/labels?](https://github.com/tidyverse/ggplot2/issues/1903)
+
+titleGrob experiments
+---------------------
+
+``` r
+## Helper function for displaying titleGrob
+display_tg <- function(label, x, y, ...) {
+  tg <- ggplot2:::titleGrob(label, x, y, ...)
+  grid.newpage()
+  grid.rect()
+  grid.draw(tg)
+}
+```
+
+Let's look at some `titleGrob()`s
+
+``` r
+gp <- gpar(fontsize = 20)
+
+## First some simple titleGrobs
+display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, gp = gp)
+```
+
+<img src="figs/display-titlegrob-1.svg" width="50%" style="display: block; margin: auto;" />
+
+``` r
+display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, angle = 45, gp = gp)
+```
+
+<img src="figs/display-titlegrob-2.svg" width="50%" style="display: block; margin: auto;" />
+
+``` r
+## Add expand_x and expand_y and view showGrob() overlay
+display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, expand_x = TRUE,
+           expand_y = TRUE, margin = margin(3, 3, 3, 3), gp = gp)
+```
+
+<img src="figs/display-titlegrob-3.svg" width="50%" style="display: block; margin: auto;" />
+
+``` r
+showGrob(gPath = "titleGrob", grep = TRUE)
+```
+
+<img src="figs/display-titlegrob-4.svg" width="50%" style="display: block; margin: auto;" />
+
+``` r
+grid.ls(viewports = TRUE, fullnames = TRUE)
+```
+
+    ## ROOT
+    ##   GRID.rect.3958
+    ##   GRID.VP.724
+    ##     GRID.VP.725
+    ##       GRID.titleGrob.3957
+    ##         GRID.text.3956
+    ##       2
