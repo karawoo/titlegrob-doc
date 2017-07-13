@@ -283,11 +283,14 @@ titleGrob experiments
 
 ``` r
 ## Helper function for displaying titleGrob
-display_tg <- function(label, x, y, ...) {
+display_tg <- function(label, x = 0.5, y = 0.5, ..., showgrob = FALSE) {
   tg <- ggplot2:::titleGrob(label, x, y, ...)
   grid.newpage()
   grid.rect()
   grid.draw(tg)
+  if (showgrob) {
+    showGrob(gPath = "titleGrob", grep = TRUE)
+  }
 }
 ```
 
@@ -297,39 +300,41 @@ Let's look at some `titleGrob()`s
 gp <- gpar(fontsize = 20)
 
 ## First some simple titleGrobs
-display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, gp = gp)
+display_tg("pineapple", hjust = 0, vjust = 0, gp = gp)
 ```
 
 <img src="figs/display-titlegrob-1.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
-display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, angle = 45, gp = gp)
+display_tg("pineapple", hjust = 0, vjust = 0, angle = 45, gp = gp)
 ```
 
 <img src="figs/display-titlegrob-2.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
-## Add expand_x and expand_y and view showGrob() overlay
-display_tg("pineapple", x = 0.5, y = 0.5, hjust = 0, vjust = 0, expand_x = TRUE,
-           expand_y = TRUE, margin = margin(3, 3, 3, 3), gp = gp)
+## Add expand_x, expand_y, and margins and view showGrob() overlay
+display_tg(
+  "pineapple",
+  hjust = 0,
+  vjust = 0,
+  expand_x = TRUE,
+  expand_y = TRUE,
+  margin = margin(3, 3, 3, 3),
+  gp = gp,
+  showgrob = TRUE
+)
 ```
 
-<img src="figs/display-titlegrob-3.png" width="50%" style="display: block; margin: auto;" />
-
-``` r
-showGrob(gPath = "titleGrob", grep = TRUE)
-```
-
-<img src="figs/display-titlegrob-4.png" width="50%" style="display: block; margin: auto;" />
+<img src="figs/display-titlegrob-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/display-titlegrob-4.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
 grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.4363
-    ##   GRID.VP.792
-    ##     GRID.VP.793
-    ##       GRID.titleGrob.4362
-    ##         GRID.text.4361
+    ##   GRID.rect.5159
+    ##   GRID.VP.926
+    ##     GRID.VP.927
+    ##       GRID.titleGrob.5158
+    ##         GRID.text.5157
     ##       2
