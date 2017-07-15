@@ -1,7 +1,7 @@
 titleGrob()
 ================
 Kara Woo
-12 July, 2017
+14 July, 2017
 
 ``` r
 library("grid")
@@ -286,7 +286,7 @@ titleGrob experiments
 display_tg <- function(label, x = 0.5, y = 0.5, ..., showgrob = FALSE) {
   tg <- ggplot2:::titleGrob(label, x, y, ...)
   grid.newpage()
-  grid.rect()
+  grid.rect()                       # Just so there's a border around the figure
   grid.draw(tg)
   if (showgrob) {
     showGrob(gPath = "titleGrob", grep = TRUE)
@@ -332,9 +332,110 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.5159
-    ##   GRID.VP.926
-    ##     GRID.VP.927
-    ##       GRID.titleGrob.5158
-    ##         GRID.text.5157
+    ##   GRID.rect.7293
+    ##   GRID.VP.1538
+    ##     GRID.VP.1539
+    ##       GRID.titleGrob.7292
+    ##         GRID.text.7291
     ##       2
+
+The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
+
+``` r
+## childNames of a titleGrob object is the text object
+childNames(
+  ggplot2:::titleGrob(
+    "pineapple",
+    0.5,
+    0.5,
+    hjust = 0,
+    vjust = 0,
+    expand_x = TRUE,
+    expand_y = TRUE,
+    margin = margin(3, 3, 3, 3)
+  )
+)
+```
+
+    ## [1] "GRID.text.7305"
+
+What happens if we expand the margins?
+
+``` r
+display_tg(
+  "pineapple",
+  hjust = 0,
+  vjust = 0,
+  expand_x = TRUE,
+  expand_y = TRUE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+```
+
+<img src="figs/display-titlegrob-wider-margins-1.png" width="80%" style="display: block; margin: auto;" /><img src="figs/display-titlegrob-wider-margins-2.png" width="80%" style="display: block; margin: auto;" />
+
+What happens when we vary `expand_x` and `expand_y`:
+
+``` r
+display_tg(
+  "pineapple",
+  hjust = 0,
+  vjust = 0,
+  expand_x = FALSE,
+  expand_y = TRUE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+```
+
+<img src="figs/titlegrob-expand-1.png" width="80%" style="display: block; margin: auto;" /><img src="figs/titlegrob-expand-2.png" width="80%" style="display: block; margin: auto;" />
+
+``` r
+display_tg(
+  "pineapple",
+  hjust = 0,
+  vjust = 0,
+  expand_x = TRUE,
+  expand_y = FALSE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+```
+
+<img src="figs/titlegrob-expand-3.png" width="80%" style="display: block; margin: auto;" /><img src="figs/titlegrob-expand-4.png" width="80%" style="display: block; margin: auto;" />
+
+Also hjust and vjust:
+
+``` r
+display_tg(
+  "pineapple",
+  hjust = 0.5,
+  vjust = 0,
+  expand_x = TRUE,
+  expand_y = TRUE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+```
+
+<img src="figs/titlegrob-just-1.png" width="80%" style="display: block; margin: auto;" /><img src="figs/titlegrob-just-2.png" width="80%" style="display: block; margin: auto;" />
+
+``` r
+display_tg(
+  "pineapple",
+  hjust = 0,
+  vjust = 0.5,
+  expand_x = TRUE,
+  expand_y = TRUE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+```
+
+<img src="figs/titlegrob-just-3.png" width="80%" style="display: block; margin: auto;" /><img src="figs/titlegrob-just-4.png" width="80%" style="display: block; margin: auto;" />
