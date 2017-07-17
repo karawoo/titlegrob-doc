@@ -346,7 +346,7 @@ childNames(
 
 What happens if we expand the margins?
 
-```{r display-titlegrob-wider-margins}
+```{r display-titlegrob-wider-margins, out.width = "50%"}
 display_tg(
   "pineapple",
   hjust = 0,
@@ -361,7 +361,7 @@ display_tg(
 
 What happens when we vary `expand_x` and `expand_y`:
 
-```{r titlegrob-expand}
+```{r titlegrob-expand, out.width = "50%"}
 display_tg(
   "pineapple",
   hjust = 0,
@@ -388,7 +388,7 @@ display_tg(
 
 Also hjust and vjust:
 
-```{r titlegrob-just}
+```{r titlegrob-just, out.width = "50%"}
 display_tg(
   "pineapple",
   hjust = 0.5,

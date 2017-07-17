@@ -1,7 +1,7 @@
 titleGrob()
 ================
 Kara Woo
-14 July, 2017
+17 July, 2017
 
 ``` r
 library("grid")
@@ -332,11 +332,11 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.7293
-    ##   GRID.VP.1538
-    ##     GRID.VP.1539
-    ##       GRID.titleGrob.7292
-    ##         GRID.text.7291
+    ##   GRID.rect.1348
+    ##   GRID.VP.227
+    ##     GRID.VP.228
+    ##       GRID.titleGrob.1347
+    ##         GRID.text.1346
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
@@ -357,7 +357,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.7305"
+    ## [1] "GRID.text.1360"
 
 What happens if we expand the margins?
 
@@ -374,7 +374,7 @@ display_tg(
 )
 ```
 
-<img src="figs/display-titlegrob-wider-margins-1.png" width="80%" style="display: block; margin: auto;" /><img src="figs/display-titlegrob-wider-margins-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/display-titlegrob-wider-margins-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/display-titlegrob-wider-margins-2.png" width="50%" style="display: block; margin: auto;" />
 
 What happens when we vary `expand_x` and `expand_y`:
 
@@ -391,7 +391,7 @@ display_tg(
 )
 ```
 
-<img src="figs/titlegrob-expand-1.png" width="80%" style="display: block; margin: auto;" /><img src="figs/titlegrob-expand-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/titlegrob-expand-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/titlegrob-expand-2.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
 display_tg(
@@ -406,7 +406,7 @@ display_tg(
 )
 ```
 
-<img src="figs/titlegrob-expand-3.png" width="80%" style="display: block; margin: auto;" /><img src="figs/titlegrob-expand-4.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/titlegrob-expand-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/titlegrob-expand-4.png" width="50%" style="display: block; margin: auto;" />
 
 Also hjust and vjust:
 
@@ -423,7 +423,7 @@ display_tg(
 )
 ```
 
-<img src="figs/titlegrob-just-1.png" width="80%" style="display: block; margin: auto;" /><img src="figs/titlegrob-just-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/titlegrob-just-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/titlegrob-just-2.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
 display_tg(
@@ -438,4 +438,4 @@ display_tg(
 )
 ```
 
-<img src="figs/titlegrob-just-3.png" width="80%" style="display: block; margin: auto;" /><img src="figs/titlegrob-just-4.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/titlegrob-just-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/titlegrob-just-4.png" width="50%" style="display: block; margin: auto;" />
