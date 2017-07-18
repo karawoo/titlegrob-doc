@@ -7,6 +7,7 @@ Kara Woo
 library("grid")
 library("gridDebug")
 library("ggplot2")
+library("gridExtra")
 ```
 
 This document will systematically review the behavior of `titleGrob()`, the function that places text elements everywhere (?) except facet labels (those are handled by `stripGrob()`). Here's a plot to use for exploration:
@@ -206,6 +207,8 @@ I also looked through the codebase for instances of `expand_x` and `expand_y`. T
 -   `R/guide-legend.r` creating `grob.title` and `grob.labels` (lines 311 and 339)
     -   Both `expand_x` and `expand_y` are false in these cases
 
+`geom_text` calls `grid::textGrob()` directly, so `titleGrob()` isn't used for things like text annotations.
+
 stripGrob()
 -----------
 
@@ -332,13 +335,13 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.18353
-    ##   GRID.VP.3525
-    ##     GRID.VP.3526
-    ##       GRID.titleGrob.18352
-    ##         GRID.rect.18350
-    ##         GRID.points.18351
-    ##         GRID.text.18349
+    ##   GRID.rect.15223
+    ##   GRID.VP.2607
+    ##     GRID.VP.2608
+    ##       GRID.titleGrob.15222
+    ##         GRID.rect.15220
+    ##         GRID.points.15221
+    ##         GRID.text.15219
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
@@ -359,7 +362,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.18375"
+    ## [1] "GRID.text.15245"
 
 What happens if we expand the margins?
 
@@ -491,3 +494,77 @@ display_tg(
 ```
 
 <img src="figs/rotation-just-5.png" width="50%" style="display: block; margin: auto;" /><img src="figs/rotation-just-6.png" width="50%" style="display: block; margin: auto;" />
+
+Let's view some titleGrobs in context on some plots. How does changing the margins affect these text elements? I'll start by looking at axis titles. Here's how a plot normally looks.
+
+``` r
+## Simple plot
+p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
+  geom_point() +
+  theme(plot.background = element_rect(size = 1, color = "grey"))
+
+p + theme(axis.title = element_text(debug = TRUE))
+```
+
+<img src="figs/axis-title-margin-1.png" width="80%" style="display: block; margin: auto;" />
+
+Changing the margins of `axis.title` has no effect:
+
+``` r
+## Change margin of axis titles -- this has no effect...
+p +
+  theme(axis.title = element_text(margin = margin(20, 20, 20, 20), debug = TRUE))
+```
+
+<img src="figs/axis-title-margin-2-1.png" width="80%" style="display: block; margin: auto;" />
+
+But you can change the margins by altering `axis.title.x` or `axis.title.y`:
+
+``` r
+grid.arrange(
+  p +
+    theme(axis.title.x = element_text(margin = margin(20, 20, 20, 20), debug = TRUE)),
+  p +
+    theme(axis.title.y = element_text(margin = margin(20, 20, 20, 20), debug = TRUE)),
+  ncol = 2
+)
+```
+
+<img src="figs/axis-title-margin-3-1.png" width="80%" style="display: block; margin: auto;" />
+
+`vjust` for axis titles also only takes effect when working with `axis.title.x` or `axis.title.y` (not just plain `axis.title`):
+
+``` r
+## Change vjust - no effect on axis.title...
+p + theme(axis.title = element_text(vjust = 0, debug = TRUE))
+```
+
+<img src="figs/axis-title-vjust-1.png" width="80%" style="display: block; margin: auto;" />
+
+``` r
+## ...but can change vjust for axis.title.x and axis.title.y
+grid.arrange(
+  p + theme(axis.title.x = element_text(vjust = 0, debug = TRUE)),
+  p + theme(axis.title.y = element_text(vjust = 0, debug = TRUE)),
+  ncol = 2
+)
+```
+
+<img src="figs/axis-title-vjust-2.png" width="80%" style="display: block; margin: auto;" />
+
+This doesn't actually change the placement of the text, but that is expected (see [\#1435](https://github.com/tidyverse/ggplot2/issues/1435)).
+
+`hjust` works fine with `axis.title` it seems.
+
+``` r
+## Change hjust
+p + theme(axis.title = element_text(hjust = 0, debug = TRUE)) 
+```
+
+<img src="figs/axis-title-hjust-1.png" width="80%" style="display: block; margin: auto;" />
+
+``` r
+p + theme(axis.title = element_text(hjust = 1, debug = TRUE))
+```
+
+<img src="figs/axis-title-hjust-2.png" width="80%" style="display: block; margin: auto;" />

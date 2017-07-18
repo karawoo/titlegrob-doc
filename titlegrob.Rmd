@@ -20,6 +20,7 @@ knitr::opts_chunk$set(echo = TRUE,
 library("grid")
 library("gridDebug")
 library("ggplot2")
+library("gridExtra")
 ```
 
 This document will systematically review the behavior of `titleGrob()`, the
@@ -213,6 +214,9 @@ These appear in:
 - `R/guides-axis.r` when creating axis tick labels (line 47)
 - `R/guide-legend.r` creating `grob.title` and `grob.labels` (lines 311 and 339)
     - Both `expand_x` and `expand_y` are false in these cases
+    
+`geom_text` calls `grid::textGrob()` directly, so `titleGrob()` isn't used for
+things like text annotations.
 
 ## stripGrob()
 
@@ -450,4 +454,63 @@ display_tg(
   gp = gp,
   showgrob = TRUE
 )
+```
+
+Let's view some titleGrobs in context on some plots. How does changing the
+margins affect these text elements? I'll start by looking at axis titles. Here's
+how a plot normally looks.
+
+```{r axis-title-margin, out.width = "80%"}
+## Simple plot
+p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
+  geom_point() +
+  theme(plot.background = element_rect(size = 1, color = "grey"))
+
+p + theme(axis.title = element_text(debug = TRUE))
+```
+
+Changing the margins of `axis.title` has no effect:
+
+```{r axis-title-margin-2, out.width = "80%"}
+## Change margin of axis titles -- this has no effect...
+p +
+  theme(axis.title = element_text(margin = margin(20, 20, 20, 20), debug = TRUE))
+```
+
+But you can change the margins by altering `axis.title.x` or `axis.title.y`:
+
+```{r axis-title-margin-3, out.width = "80%"}
+grid.arrange(
+  p +
+    theme(axis.title.x = element_text(margin = margin(20, 20, 20, 20), debug = TRUE)),
+  p +
+    theme(axis.title.y = element_text(margin = margin(20, 20, 20, 20), debug = TRUE)),
+  ncol = 2
+)
+```
+
+`vjust` for axis titles also only takes effect when working with `axis.title.x`
+or `axis.title.y` (not just plain `axis.title`):
+
+```{r axis-title-vjust, out.width = "80%"}
+## Change vjust - no effect on axis.title...
+p + theme(axis.title = element_text(vjust = 0, debug = TRUE))
+
+## ...but can change vjust for axis.title.x and axis.title.y
+grid.arrange(
+  p + theme(axis.title.x = element_text(vjust = 0, debug = TRUE)),
+  p + theme(axis.title.y = element_text(vjust = 0, debug = TRUE)),
+  ncol = 2
+)
+```
+
+This doesn't actually change the placement of the text, but that is expected
+(see [#1435](https://github.com/tidyverse/ggplot2/issues/1435)).
+
+`hjust` works fine with `axis.title` it seems.
+
+```{r axis-title-hjust, out.width = "80%"}
+## Change hjust
+p + theme(axis.title = element_text(hjust = 0, debug = TRUE)) 
+p + theme(axis.title = element_text(hjust = 1, debug = TRUE))
 ```
