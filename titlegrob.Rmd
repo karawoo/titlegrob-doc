@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.path = "figs/",
                       fig.align = "center",
                       fig.asp = 0.618,
-                      out.width = "80%",
+                      out.width = "50%",
                       dev = "png")
 ```
 
@@ -37,7 +37,7 @@ p <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
 Since understanding `titleGrob()` requires understanding some of the `grid`
 graphics package, here are some functions that might help inspect grid objects.
 
-```{r grid-debugging-tools}
+```{r grid-debugging-tools, out.width = "80%"}
 p
 
 ## Grid debugging tools
@@ -48,7 +48,7 @@ gridTree()
 
 `element_text()` also has a `debug = TRUE` argument.
 
-```{r debug-true}
+```{r debug-true, out.width = "80%"}
 ## Text elements with debug = TRUE
 p +
   theme(
@@ -302,7 +302,7 @@ display_tg <- function(label, x = 0.5, y = 0.5, ..., showgrob = FALSE) {
 
 Let's look at some `titleGrob()`s
 
-```{r display-titlegrob, out.width = "50%"}
+```{r display-titlegrob}
 gp <- gpar(fontsize = 20)
 
 ## First some simple titleGrobs
@@ -345,7 +345,7 @@ childNames(
 
 What happens if we expand the margins?
 
-```{r display-titlegrob-wider-margins, out.width = "50%"}
+```{r display-titlegrob-wider-margins}
 display_tg(
   "pineapple",
   hjust = 0,
@@ -360,7 +360,7 @@ display_tg(
 
 What happens when we vary `expand_x` and `expand_y`:
 
-```{r titlegrob-expand, out.width = "50%"}
+```{r titlegrob-expand}
 display_tg(
   "pineapple",
   hjust = 0,
@@ -387,7 +387,7 @@ display_tg(
 
 Also hjust and vjust:
 
-```{r titlegrob-just, out.width = "50%"}
+```{r titlegrob-just}
 display_tg(
   "pineapple",
   hjust = 0.5,

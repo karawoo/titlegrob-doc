@@ -332,13 +332,13 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.16472
-    ##   GRID.VP.3267
-    ##     GRID.VP.3268
-    ##       GRID.titleGrob.16471
-    ##         GRID.rect.16469
-    ##         GRID.points.16470
-    ##         GRID.text.16468
+    ##   GRID.rect.18353
+    ##   GRID.VP.3525
+    ##     GRID.VP.3526
+    ##       GRID.titleGrob.18352
+    ##         GRID.rect.18350
+    ##         GRID.points.18351
+    ##         GRID.text.18349
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
@@ -359,7 +359,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.16494"
+    ## [1] "GRID.text.18375"
 
 What happens if we expand the margins?
 
@@ -458,7 +458,7 @@ display_tg(
 )
 ```
 
-<img src="figs/rotation-just-1.png" width="80%" style="display: block; margin: auto;" /><img src="figs/rotation-just-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/rotation-just-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/rotation-just-2.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
 display_tg(
@@ -474,7 +474,7 @@ display_tg(
 )
 ```
 
-<img src="figs/rotation-just-3.png" width="80%" style="display: block; margin: auto;" /><img src="figs/rotation-just-4.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/rotation-just-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/rotation-just-4.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
 display_tg(
@@ -490,4 +490,4 @@ display_tg(
 )
 ```
 
-<img src="figs/rotation-just-5.png" width="80%" style="display: block; margin: auto;" /><img src="figs/rotation-just-6.png" width="80%" style="display: block; margin: auto;" />
+<img src="figs/rotation-just-5.png" width="50%" style="display: block; margin: auto;" /><img src="figs/rotation-just-6.png" width="50%" style="display: block; margin: auto;" />
