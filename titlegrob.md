@@ -1,7 +1,7 @@
 titleGrob()
 ================
 Kara Woo
-17 July, 2017
+18 July, 2017
 
 ``` r
 library("grid")
@@ -284,7 +284,7 @@ titleGrob experiments
 ``` r
 ## Helper function for displaying titleGrob
 display_tg <- function(label, x = 0.5, y = 0.5, ..., showgrob = FALSE) {
-  tg <- ggplot2:::titleGrob(label, x, y, ...)
+  tg <- ggplot2:::titleGrob(label, x, y, ..., debug = TRUE)
   grid.newpage()
   grid.rect()                       # Just so there's a border around the figure
   grid.draw(tg)
@@ -332,11 +332,13 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.1348
-    ##   GRID.VP.227
-    ##     GRID.VP.228
-    ##       GRID.titleGrob.1347
-    ##         GRID.text.1346
+    ##   GRID.rect.13342
+    ##   GRID.VP.2938
+    ##     GRID.VP.2939
+    ##       GRID.titleGrob.13341
+    ##         GRID.rect.13339
+    ##         GRID.points.13340
+    ##         GRID.text.13338
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
@@ -357,7 +359,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.1360"
+    ## [1] "GRID.text.13364"
 
 What happens if we expand the margins?
 

@@ -290,7 +290,7 @@ A lot of current issues relate to the margins around text elements:
 ```{r tg-helper-fun}
 ## Helper function for displaying titleGrob
 display_tg <- function(label, x = 0.5, y = 0.5, ..., showgrob = FALSE) {
-  tg <- ggplot2:::titleGrob(label, x, y, ...)
+  tg <- ggplot2:::titleGrob(label, x, y, ..., debug = TRUE)
   grid.newpage()
   grid.rect()                       # Just so there's a border around the figure
   grid.draw(tg)
@@ -298,7 +298,6 @@ display_tg <- function(label, x = 0.5, y = 0.5, ..., showgrob = FALSE) {
     showGrob(gPath = "titleGrob", grep = TRUE)
   }
 }
-
 ```
 
 Let's look at some `titleGrob()`s
