@@ -332,13 +332,13 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.13342
-    ##   GRID.VP.2938
-    ##     GRID.VP.2939
-    ##       GRID.titleGrob.13341
-    ##         GRID.rect.13339
-    ##         GRID.points.13340
-    ##         GRID.text.13338
+    ##   GRID.rect.16472
+    ##   GRID.VP.3267
+    ##     GRID.VP.3268
+    ##       GRID.titleGrob.16471
+    ##         GRID.rect.16469
+    ##         GRID.points.16470
+    ##         GRID.text.16468
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
@@ -359,7 +359,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.13364"
+    ## [1] "GRID.text.16494"
 
 What happens if we expand the margins?
 
@@ -441,3 +441,53 @@ display_tg(
 ```
 
 <img src="figs/titlegrob-just-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/titlegrob-just-4.png" width="50%" style="display: block; margin: auto;" />
+
+How do rotation and hjust/vjust interact? Things are likely to be weird given that the behavior is only explicitly defined when `angle` is 0, 90, 180, or 270.
+
+``` r
+display_tg(
+  "pineapple",
+  hjust = 0.5,
+  vjust = 0.5,
+  angle = 90,
+  expand_x = TRUE,
+  expand_y = TRUE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+```
+
+<img src="figs/rotation-just-1.png" width="80%" style="display: block; margin: auto;" /><img src="figs/rotation-just-2.png" width="80%" style="display: block; margin: auto;" />
+
+``` r
+display_tg(
+  "pineapple",
+  hjust = 0.5,
+  vjust = 0.5,
+  angle = 45,
+  expand_x = TRUE,
+  expand_y = TRUE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+```
+
+<img src="figs/rotation-just-3.png" width="80%" style="display: block; margin: auto;" /><img src="figs/rotation-just-4.png" width="80%" style="display: block; margin: auto;" />
+
+``` r
+display_tg(
+  "pineapple",
+  hjust = 0.5,
+  vjust = 0.5,
+  angle = 20,
+  expand_x = TRUE,
+  expand_y = TRUE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+```
+
+<img src="figs/rotation-just-5.png" width="80%" style="display: block; margin: auto;" /><img src="figs/rotation-just-6.png" width="80%" style="display: block; margin: auto;" />

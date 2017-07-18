@@ -410,3 +410,44 @@ display_tg(
   showgrob = TRUE
 )
 ```
+
+How do rotation and hjust/vjust interact? Things are likely to be weird given
+that the behavior is only explicitly defined when `angle` is 0, 90, 180, or 270.
+
+```{r rotation-just}
+display_tg(
+  "pineapple",
+  hjust = 0.5,
+  vjust = 0.5,
+  angle = 90,
+  expand_x = TRUE,
+  expand_y = TRUE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+
+display_tg(
+  "pineapple",
+  hjust = 0.5,
+  vjust = 0.5,
+  angle = 45,
+  expand_x = TRUE,
+  expand_y = TRUE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+
+display_tg(
+  "pineapple",
+  hjust = 0.5,
+  vjust = 0.5,
+  angle = 20,
+  expand_x = TRUE,
+  expand_y = TRUE,
+  margin = margin(20, 20, 20, 20),
+  gp = gp,
+  showgrob = TRUE
+)
+```
