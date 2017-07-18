@@ -23,6 +23,17 @@ library("ggplot2")
 library("gridExtra")
 ```
 
+## Margins 
+
+A lot of current issues relate to the margins around text elements:
+
+-   [1502 - Using \`margin\` to adjust \`legend.text\`?](https://github.com/tidyverse/ggplot2/issues/1502)
+-   [1881 - Legend titles need more padding](https://github.com/tidyverse/ggplot2/issues/1881)
+-   [1887 - Margins don't affect strip.text](https://github.com/tidyverse/ggplot2/issues/1887)
+-   [1892 - vjust not working in x facets](https://github.com/tidyverse/ggplot2/issues/1892)
+-   [1903 - Length of legend title affects justification of legend keys/labels?](https://github.com/tidyverse/ggplot2/issues/1903)
+
+
 This document will systematically review the behavior of `titleGrob()`, the
 function that places text elements everywhere (?) except facet labels (those are
 handled by `stripGrob()`). Here's a plot to use for exploration:
@@ -278,16 +289,6 @@ stripGrob <- function(label, hjust, vjust, angle = 0, gp = gpar(),
   )
 }
 ```
-
-## Margins 
-
-A lot of current issues relate to the margins around text elements:
-
--   [1502 - Using \`margin\` to adjust \`legend.text\`?](https://github.com/tidyverse/ggplot2/issues/1502)
--   [1881 - Legend titles need more padding](https://github.com/tidyverse/ggplot2/issues/1881)
--   [1887 - Margins don't affect strip.text](https://github.com/tidyverse/ggplot2/issues/1887)
--   [1892 - vjust not working in x facets](https://github.com/tidyverse/ggplot2/issues/1892)
--   [1903 - Length of legend title affects justification of legend keys/labels?](https://github.com/tidyverse/ggplot2/issues/1903)
 
 ## titleGrob experiments
 

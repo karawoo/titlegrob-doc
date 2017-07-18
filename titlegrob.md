@@ -10,6 +10,17 @@ library("ggplot2")
 library("gridExtra")
 ```
 
+Margins
+-------
+
+A lot of current issues relate to the margins around text elements:
+
+-   [1502 - Using \`margin\` to adjust \`legend.text\`?](https://github.com/tidyverse/ggplot2/issues/1502)
+-   [1881 - Legend titles need more padding](https://github.com/tidyverse/ggplot2/issues/1881)
+-   [1887 - Margins don't affect strip.text](https://github.com/tidyverse/ggplot2/issues/1887)
+-   [1892 - vjust not working in x facets](https://github.com/tidyverse/ggplot2/issues/1892)
+-   [1903 - Length of legend title affects justification of legend keys/labels?](https://github.com/tidyverse/ggplot2/issues/1903)
+
 This document will systematically review the behavior of `titleGrob()`, the function that places text elements everywhere (?) except facet labels (those are handled by `stripGrob()`). Here's a plot to use for exploration:
 
 ``` r
@@ -270,17 +281,6 @@ stripGrob <- function(label, hjust, vjust, angle = 0, gp = gpar(),
 }
 ```
 
-Margins
--------
-
-A lot of current issues relate to the margins around text elements:
-
--   [1502 - Using \`margin\` to adjust \`legend.text\`?](https://github.com/tidyverse/ggplot2/issues/1502)
--   [1881 - Legend titles need more padding](https://github.com/tidyverse/ggplot2/issues/1881)
--   [1887 - Margins don't affect strip.text](https://github.com/tidyverse/ggplot2/issues/1887)
--   [1892 - vjust not working in x facets](https://github.com/tidyverse/ggplot2/issues/1892)
--   [1903 - Length of legend title affects justification of legend keys/labels?](https://github.com/tidyverse/ggplot2/issues/1903)
-
 titleGrob experiments
 ---------------------
 
@@ -335,13 +335,13 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.15223
-    ##   GRID.VP.2607
-    ##     GRID.VP.2608
-    ##       GRID.titleGrob.15222
-    ##         GRID.rect.15220
-    ##         GRID.points.15221
-    ##         GRID.text.15219
+    ##   GRID.rect.16256
+    ##   GRID.VP.2783
+    ##     GRID.VP.2784
+    ##       GRID.titleGrob.16255
+    ##         GRID.rect.16253
+    ##         GRID.points.16254
+    ##         GRID.text.16252
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
@@ -362,7 +362,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.15245"
+    ## [1] "GRID.text.16278"
 
 What happens if we expand the margins?
 
