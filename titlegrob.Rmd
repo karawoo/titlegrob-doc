@@ -66,7 +66,7 @@ p +
   theme(
     axis.title = element_text(debug = TRUE),
     strip.text = element_text(debug = TRUE), # uses stripGrob, not titleGrob 
-    legend.title = element_text(debug = TRUE) # debug = TRUE has no effect here
+    legend.title = element_text(debug = TRUE)
   )
 ```
 
@@ -129,6 +129,18 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   text_height <- unit(1, "grobheight", text_grob) + cos(angle / 180 * pi) * descent
   text_width <- unit(1, "grobwidth", text_grob) + sin(angle / 180 * pi) * descent
 
+  ## If the debug = TRUE option is used, add yellow rectangle behind the text
+  ## and point where the text is anchored.
+  if (isTRUE(debug)) {
+    children <- gList(
+      rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
+      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
+      text_grob
+    )
+  } else {
+    children <- gList(text_grob)
+  }
+
   if (expand_x && expand_y) {
     ## If expand_x and expand_y, create variable `widths` with 3 elements: the
     ## left margin, the text width, and the right margin. Create variable
@@ -158,25 +170,21 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
     widths <- unit(1, "null")
   } else {
-    ## If neither expand_x nor expand_y, return the original text_grob
-    return(text_grob)
-  }
-
-  ## If the debug = TRUE option is used, add yellow rectangle behind the text
-  ## and point where the text is anchored. BUT I suppose this does not ever get
-  ## evaluated if text_grob was already returned above (which is why it doesn't
-  ## show up in the legend labels above)
-  if (debug) {
-    children <- gList(
-      rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
-      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
-      text_grob
+    ## If neither expand_x nor expand_y, return `children`, which may contain
+    ## just the text_grob or may also contain debugging grobs
+    widths <- text_width
+    heights <- text_height
+    return(
+      gTree(
+        children = children,
+        widths = widths,
+        heights = heights,
+        cl = "titleGrob"
+      )
     )
-  } else {
-    children <- gList(text_grob)
   }
 
-  ## If at least one of expand_x and expand_y are TRUE (i.e. text_grob hasn't
+  ## If at least one of expand_x and expand_y are TRUE (i.e. `children` hasn't
   ## already been returned) then create gTree
   gTree(
     children = children,               ## children, i.e. text_grob elements
