@@ -4,6 +4,10 @@ Kara Woo
 24 July, 2017
 
 ``` r
+## Normally I wouldn't install a package in RMD code, but I want to make sure
+## this doc isn't using whatever local version of ggplot2 I'm working on
+devtools::install_github("tidyverse/ggplot2")
+
 library("grid")
 library("gridDebug")
 library("ggplot2")
@@ -65,7 +69,7 @@ p +
   theme(
     axis.title = element_text(debug = TRUE),
     strip.text = element_text(debug = TRUE), # uses stripGrob, not titleGrob 
-    legend.title = element_text(debug = TRUE) # debug = TRUE has no effect here
+    legend.title = element_text(debug = TRUE)
   )
 ```
 
@@ -129,6 +133,18 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   text_height <- unit(1, "grobheight", text_grob) + cos(angle / 180 * pi) * descent
   text_width <- unit(1, "grobwidth", text_grob) + sin(angle / 180 * pi) * descent
 
+  ## If the debug = TRUE option is used, add yellow rectangle behind the text
+  ## and point where the text is anchored.
+  if (isTRUE(debug)) {
+    children <- gList(
+      rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
+      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
+      text_grob
+    )
+  } else {
+    children <- gList(text_grob)
+  }
+
   if (expand_x && expand_y) {
     ## If expand_x and expand_y, create variable `widths` with 3 elements: the
     ## left margin, the text width, and the right margin. Create variable
@@ -158,25 +174,21 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
     widths <- unit(1, "null")
   } else {
-    ## If neither expand_x nor expand_y, return the original text_grob
-    return(text_grob)
-  }
-
-  ## If the debug = TRUE option is used, add yellow rectangle behind the text
-  ## and point where the text is anchored. BUT I suppose this does not ever get
-  ## evaluated if text_grob was already returned above (which is why it doesn't
-  ## show up in the legend labels above)
-  if (debug) {
-    children <- gList(
-      rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
-      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
-      text_grob
+    ## If neither expand_x nor expand_y, return `children`, which may contain
+    ## just the text_grob or may also contain debugging grobs
+    widths <- text_width
+    heights <- text_height
+    return(
+      gTree(
+        children = children,
+        widths = widths,
+        heights = heights,
+        cl = "titleGrob"
+      )
     )
-  } else {
-    children <- gList(text_grob)
   }
 
-  ## If at least one of expand_x and expand_y are TRUE (i.e. text_grob hasn't
+  ## If at least one of expand_x and expand_y are TRUE (i.e. `children` hasn't
   ## already been returned) then create gTree
   gTree(
     children = children,               ## children, i.e. text_grob elements
@@ -335,13 +347,13 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.1757
-    ##   GRID.VP.346
-    ##     GRID.VP.347
-    ##       GRID.titleGrob.1756
-    ##         GRID.rect.1754
-    ##         GRID.points.1755
-    ##         GRID.text.1753
+    ##   GRID.rect.3315
+    ##   GRID.VP.561
+    ##     GRID.VP.562
+    ##       GRID.titleGrob.3314
+    ##         GRID.rect.3312
+    ##         GRID.points.3313
+    ##         GRID.text.3311
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
@@ -362,7 +374,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.1779"
+    ## [1] "GRID.text.3337"
 
 What happens if we expand the margins?
 
@@ -578,4 +590,26 @@ Why does stripGrob need its own function?
 -   `stripGrob()` always creates a viewport with a 3x3 layout, essentially the same behavior as `titleGrob()` with `expand_x` and `expand_y` set to `TRUE`
 -   I believe the only change that will have any visual ramifications is that `stripGrob()` does not include descenders in its calculations of text height and width. This seems like a bug to me; it seems better to be consistent about adding that extra padding.
 
-I think we could fairly easily replace `stripGrob()`, though doing so breaks the visual tests because the facet strips change size a little bit.
+I think we could fairly easily replace `stripGrob()`, though doing so breaks the visual tests because the facet strips change size a little bit. It also prevents `hjust` and `vjust` from having any effect on the placement of text within the strip...
+
+### How should margins and justification work in strip labels?
+
+Example from [1286](https://github.com/tidyverse/ggplot2/issues/1286):
+
+``` r
+df <- data.frame(x = 1:3, y = 1:3, z = c("a", "aaab", "aaaaaaabc"))
+
+base <- ggplot(df, aes(x, y)) + 
+  geom_point() + 
+  theme(strip.text.y = element_text(angle = 0))
+
+base + facet_grid(z ~ .) + theme(strip.text.y = element_text(hjust = 0, debug = TRUE))
+```
+
+<img src="figs/strip-label-just-1.png" width="80%" style="display: block; margin: auto;" />
+
+``` r
+base + facet_grid(z ~ .) + theme(strip.text.y = element_text(hjust = 1, debug = TRUE))
+```
+
+<img src="figs/strip-label-just-2.png" width="80%" style="display: block; margin: auto;" />
