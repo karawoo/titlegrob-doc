@@ -1,7 +1,7 @@
 titleGrob()
 ================
 Kara Woo
-18 July, 2017
+24 July, 2017
 
 ``` r
 library("grid")
@@ -335,13 +335,13 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.16256
-    ##   GRID.VP.2783
-    ##     GRID.VP.2784
-    ##       GRID.titleGrob.16255
-    ##         GRID.rect.16253
-    ##         GRID.points.16254
-    ##         GRID.text.16252
+    ##   GRID.rect.1757
+    ##   GRID.VP.346
+    ##     GRID.VP.347
+    ##       GRID.titleGrob.1756
+    ##         GRID.rect.1754
+    ##         GRID.points.1755
+    ##         GRID.text.1753
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
@@ -362,7 +362,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.16278"
+    ## [1] "GRID.text.1779"
 
 What happens if we expand the margins?
 
@@ -568,3 +568,14 @@ p + theme(axis.title = element_text(hjust = 1, debug = TRUE))
 ```
 
 <img src="figs/axis-title-hjust-2.png" width="80%" style="display: block; margin: auto;" />
+
+Why does stripGrob need its own function?
+-----------------------------------------
+
+`stripGrob()` is essentially a special case of `titleGrob()`; does it really need to be a separate function? All of the differences are fairly superficial:
+
+-   `stripGrob()` uses `hjust` and `vjust` to set both the x/y position and justification. This could be done by just passing `hjust` and `vjust` to the `x` and `y` arguments of `titleGrob()`
+-   `stripGrob()` always creates a viewport with a 3x3 layout, essentially the same behavior as `titleGrob()` with `expand_x` and `expand_y` set to `TRUE`
+-   I believe the only change that will have any visual ramifications is that `stripGrob()` does not include descenders in its calculations of text height and width. This seems like a bug to me; it seems better to be consistent about adding that extra padding.
+
+I think we could fairly easily replace `stripGrob()`, though doing so breaks the visual tests because the facet strips change size a little bit.
