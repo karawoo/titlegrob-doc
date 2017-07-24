@@ -17,6 +17,10 @@ knitr::opts_chunk$set(echo = TRUE,
 ```
 
 ```{r load-pkgs}
+## Normally I wouldn't install a package in RMD code, but I want to make sure
+## this doc isn't using whatever local version of ggplot2 I'm working on
+devtools::install_github("tidyverse/ggplot2")
+
 library("grid")
 library("gridDebug")
 library("ggplot2")
