@@ -14,8 +14,8 @@ library("ggplot2")
 library("gridExtra")
 ```
 
-Margins
--------
+Issues
+------
 
 A lot of current issues relate to the margins around text elements:
 
@@ -24,7 +24,16 @@ A lot of current issues relate to the margins around text elements:
 -   [1892 - vjust not working in x facets](https://github.com/tidyverse/ggplot2/issues/1892)
 -   [1903 - Length of legend title affects justification of legend keys/labels?](https://github.com/tidyverse/ggplot2/issues/1903)
 
-This document will systematically review the behavior of `titleGrob()`, the function that places text elements everywhere (?) except facet labels (those are handled by `stripGrob()`). Here's a plot to use for exploration:
+This document will systematically review the behavior of `titleGrob()`, the function that places text elements everywhere (?) except facet labels (those are handled by `stripGrob()`).
+
+### Some outstanding questions:
+
+-   Why don't margins work in strip text?
+-   Why are `hjust` and `vjust` interpreted differently for strip text vs. other text? See [this comment](https://github.com/tidyverse/ggplot2/issues/1892#issuecomment-316192474): strip text interprets `hjust` and `vjust` in absolute terms rather than relative to the direction of the text.
+-   Why don't margins work in legend titles/labels? (It's partially because `expand_x` and `expand_y` are `FALSE`, so `titleGrob()` doesn't add the margins -- but we can't just fix this by making those arguments `TRUE` because of [this](https://github.com/tidyverse/ggplot2/commit/7be4c8944bca845c9b9e189ec8c44231f6b4dc2b#commitcomment-15795870))
+-   Is `stripGrob()` redundant? Can we remove it and use `titleGrob()` instead?
+
+First I need to figure out how text placement works. Here's a plot to use for exploration:
 
 ``` r
 ## A plot
@@ -348,13 +357,13 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.4567
-    ##   GRID.VP.747
-    ##     GRID.VP.748
-    ##       GRID.titleGrob.4566
-    ##         GRID.rect.4564
-    ##         GRID.points.4565
-    ##         GRID.text.4563
+    ##   GRID.rect.3062
+    ##   GRID.VP.507
+    ##     GRID.VP.508
+    ##       GRID.titleGrob.3061
+    ##         GRID.rect.3059
+    ##         GRID.points.3060
+    ##         GRID.text.3058
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has the text grob and debugging grobs as children.
@@ -375,7 +384,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.4589"
+    ## [1] "GRID.text.3084"
 
 What happens if we expand the margins?
 

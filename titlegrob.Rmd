@@ -27,7 +27,7 @@ library("ggplot2")
 library("gridExtra")
 ```
 
-## Margins 
+## Issues 
 
 A lot of current issues relate to the margins around text elements:
 
@@ -39,7 +39,26 @@ A lot of current issues relate to the margins around text elements:
 
 This document will systematically review the behavior of `titleGrob()`, the
 function that places text elements everywhere (?) except facet labels (those are
-handled by `stripGrob()`). Here's a plot to use for exploration:
+handled by `stripGrob()`).
+
+### Some outstanding questions:
+
+- Why don't margins work in strip text?
+- Why are `hjust` and `vjust` interpreted differently for strip text vs. other
+  text?
+  See
+  [this comment](https://github.com/tidyverse/ggplot2/issues/1892#issuecomment-316192474):
+  strip text interprets `hjust` and `vjust` in absolute terms rather than
+  relative to the direction of the text.
+- Why don't margins work in legend titles/labels? (It's partially because
+  `expand_x` and `expand_y` are `FALSE`, so `titleGrob()` doesn't add the
+  margins -- but we can't just fix this by making those arguments `TRUE` because
+  of
+  [this](https://github.com/tidyverse/ggplot2/commit/7be4c8944bca845c9b9e189ec8c44231f6b4dc2b#commitcomment-15795870))
+- Is `stripGrob()` redundant? Can we remove it and use `titleGrob()` instead?
+
+First I need to figure out how text placement works. Here's a plot to use for
+exploration:
 
 ```{r iris-plot}
 ## A plot
@@ -47,7 +66,6 @@ p <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
   facet_wrap(~ Species) +
   geom_point(aes(colour = Species))
 ```
-
 
 Since understanding `titleGrob()` requires understanding some of the `grid`
 graphics package, here are some functions that might help inspect grid objects.
