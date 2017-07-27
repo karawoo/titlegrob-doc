@@ -1,7 +1,7 @@
 titleGrob()
 ================
 Kara Woo
-24 July, 2017
+26 July, 2017
 
 ``` r
 ## Normally I wouldn't install a package in RMD code, but I want to make sure
@@ -20,7 +20,6 @@ Margins
 A lot of current issues relate to the margins around text elements:
 
 -   [1502 - Using \`margin\` to adjust \`legend.text\`?](https://github.com/tidyverse/ggplot2/issues/1502)
--   [1881 - Legend titles need more padding](https://github.com/tidyverse/ggplot2/issues/1881)
 -   [1887 - Margins don't affect strip.text](https://github.com/tidyverse/ggplot2/issues/1887)
 -   [1892 - vjust not working in x facets](https://github.com/tidyverse/ggplot2/issues/1892)
 -   [1903 - Length of legend title affects justification of legend keys/labels?](https://github.com/tidyverse/ggplot2/issues/1903)
@@ -347,13 +346,13 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.3315
-    ##   GRID.VP.561
-    ##     GRID.VP.562
-    ##       GRID.titleGrob.3314
-    ##         GRID.rect.3312
-    ##         GRID.points.3313
-    ##         GRID.text.3311
+    ##   GRID.rect.7336
+    ##   GRID.VP.1283
+    ##     GRID.VP.1284
+    ##       GRID.titleGrob.7335
+    ##         GRID.rect.7333
+    ##         GRID.points.7334
+    ##         GRID.text.7332
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
@@ -374,7 +373,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.3337"
+    ## [1] "GRID.text.7358"
 
 What happens if we expand the margins?
 
@@ -613,3 +612,9 @@ base + facet_grid(z ~ .) + theme(strip.text.y = element_text(hjust = 1, debug = 
 ```
 
 <img src="figs/strip-label-just-2.png" width="80%" style="display: block; margin: auto;" />
+
+The equivalent versions of these plots after removing `stripGrob()` and using `titleGrob()` instead is:
+
+<img src="figs/strip-titles-without-stripgrob-1.png" width="80%" style="display: block; margin: auto;" /><img src="figs/strip-titles-without-stripgrob-2.png" width="80%" style="display: block; margin: auto;" />
+
+The text is centered no matter what the `hjust` or `vjust` value is. This seems like it might be related to [this issue](https://github.com/tidyverse/ggplot2/commit/7be4c8944bca845c9b9e189ec8c44231f6b4dc2b#commitcomment-15795870), but I'm not sure.

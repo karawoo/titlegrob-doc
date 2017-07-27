@@ -32,7 +32,6 @@ library("gridExtra")
 A lot of current issues relate to the margins around text elements:
 
 -   [1502 - Using \`margin\` to adjust \`legend.text\`?](https://github.com/tidyverse/ggplot2/issues/1502)
--   [1881 - Legend titles need more padding](https://github.com/tidyverse/ggplot2/issues/1881)
 -   [1887 - Margins don't affect strip.text](https://github.com/tidyverse/ggplot2/issues/1887)
 -   [1892 - vjust not working in x facets](https://github.com/tidyverse/ggplot2/issues/1892)
 -   [1903 - Length of legend title affects justification of legend keys/labels?](https://github.com/tidyverse/ggplot2/issues/1903)
@@ -563,3 +562,14 @@ base + facet_grid(z ~ .) + theme(strip.text.y = element_text(hjust = 0, debug = 
 base + facet_grid(z ~ .) + theme(strip.text.y = element_text(hjust = 1, debug = TRUE))
 ```
 
+The equivalent versions of these plots after removing `stripGrob()` and using
+`titleGrob()` instead is:
+
+
+```{r without-stripgrob, out.width = "80%", echo = FALSE}
+knitr::include_graphics("figs/strip-titles-without-stripgrob-1.png")
+knitr::include_graphics("figs/strip-titles-without-stripgrob-2.png")
+```
+
+The text is centered no matter what the `hjust` or `vjust` value is. This seems
+like it might be related to [this issue](https://github.com/tidyverse/ggplot2/commit/7be4c8944bca845c9b9e189ec8c44231f6b4dc2b#commitcomment-15795870), but I'm not sure.
