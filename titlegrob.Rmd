@@ -348,7 +348,8 @@ This is interesting --
 before [#2212](https://github.com/tidyverse/ggplot2/pull/2212) these appeared as
 just the word `pineapple` in the center of the image, because debugging output
 didn't work when `expand_x` and `expand_y` were false. Now the debugging works,
-but it's interesting that the point is all the way at the top left.
+but it's interesting that the point is all the way at the top left. The point
+*should* appear at `(x, y)`, which is `(0.5, 0.5)` in this case.
 
 ```{r display-titlegrob-expand}
 ## Add expand_x, expand_y, and margins and view showGrob() overlay

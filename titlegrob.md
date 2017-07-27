@@ -334,7 +334,7 @@ display_tg("pineapple", hjust = 0, vjust = 0, angle = 45, gp = gp)
 
 <img src="figs/display-titlegrob-2.png" width="50%" style="display: block; margin: auto;" />
 
-This is interesting -- before [\#2212](https://github.com/tidyverse/ggplot2/pull/2212) these appeared as just the word `pineapple` in the center of the image, because debugging output didn't work when `expand_x` and `expand_y` were false. Now the debugging works, but it's interesting that the point is all the way at the top left.
+This is interesting -- before [\#2212](https://github.com/tidyverse/ggplot2/pull/2212) these appeared as just the word `pineapple` in the center of the image, because debugging output didn't work when `expand_x` and `expand_y` were false. Now the debugging works, but it's interesting that the point is all the way at the top left. The point *should* appear at `(x, y)`, which is `(0.5, 0.5)` in this case.
 
 ``` r
 ## Add expand_x, expand_y, and margins and view showGrob() overlay
@@ -357,13 +357,13 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.3062
-    ##   GRID.VP.507
-    ##     GRID.VP.508
-    ##       GRID.titleGrob.3061
-    ##         GRID.rect.3059
-    ##         GRID.points.3060
-    ##         GRID.text.3058
+    ##   GRID.rect.4395
+    ##   GRID.VP.727
+    ##     GRID.VP.728
+    ##       GRID.titleGrob.4394
+    ##         GRID.rect.4392
+    ##         GRID.points.4393
+    ##         GRID.text.4391
     ##       2
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has the text grob and debugging grobs as children.
@@ -384,7 +384,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.3084"
+    ## [1] "GRID.text.4417"
 
 What happens if we expand the margins?
 
