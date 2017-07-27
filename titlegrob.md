@@ -1,7 +1,7 @@
 titleGrob()
 ================
 Kara Woo
-26 July, 2017
+27 July, 2017
 
 ``` r
 ## Normally I wouldn't install a package in RMD code, but I want to make sure
@@ -325,6 +325,8 @@ display_tg("pineapple", hjust = 0, vjust = 0, angle = 45, gp = gp)
 
 <img src="figs/display-titlegrob-2.png" width="50%" style="display: block; margin: auto;" />
 
+This is interesting -- before [\#2212](https://github.com/tidyverse/ggplot2/pull/2212) these appeared as just the word `pineapple` in the center of the image, because debugging output didn't work when `expand_x` and `expand_y` were false. Now the debugging works, but it's interesting that the point is all the way at the top left.
+
 ``` r
 ## Add expand_x, expand_y, and margins and view showGrob() overlay
 display_tg(
@@ -339,23 +341,23 @@ display_tg(
 )
 ```
 
-<img src="figs/display-titlegrob-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/display-titlegrob-4.png" width="50%" style="display: block; margin: auto;" />
+<img src="figs/display-titlegrob-expand-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/display-titlegrob-expand-2.png" width="50%" style="display: block; margin: auto;" />
 
 ``` r
 grid.ls(viewports = TRUE, fullnames = TRUE)
 ```
 
     ## ROOT
-    ##   GRID.rect.7336
-    ##   GRID.VP.1283
-    ##     GRID.VP.1284
-    ##       GRID.titleGrob.7335
-    ##         GRID.rect.7333
-    ##         GRID.points.7334
-    ##         GRID.text.7332
+    ##   GRID.rect.4567
+    ##   GRID.VP.747
+    ##     GRID.VP.748
+    ##       GRID.titleGrob.4566
+    ##         GRID.rect.4564
+    ##         GRID.points.4565
+    ##         GRID.text.4563
     ##       2
 
-The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has a text grob as a child.
+The `grid.ls()` output shows that we beneath the root we have a `rect` and a viewport. Within the viewport is a child viewport as well as a `titleGrob` class object which has the text grob and debugging grobs as children.
 
 ``` r
 ## childNames of a titleGrob object is the text object
@@ -373,7 +375,7 @@ childNames(
 )
 ```
 
-    ## [1] "GRID.text.7358"
+    ## [1] "GRID.text.4589"
 
 What happens if we expand the margins?
 
@@ -456,13 +458,17 @@ display_tg(
 
 <img src="figs/titlegrob-just-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/titlegrob-just-4.png" width="50%" style="display: block; margin: auto;" />
 
-How do rotation and hjust/vjust interact? Things are likely to be weird given that the behavior is only explicitly defined when `angle` is 0, 90, 180, or 270.
+How do rotation and hjust/vjust interact? Things are likely to be weird given that there are special cases for when `angle` is 90, 180, or 270, and fallback behavior for every angle in between.
+
+`titleGrob()` uses `hjust` and `vjust` to determine x and y position in when x/y are `NULL`. For all angles except 90, 180, and 270, it uses the value of `hjust` for x and `vjust` for y. Some examples:
 
 ``` r
 display_tg(
   "pineapple",
-  hjust = 0.5,
-  vjust = 0.5,
+  x = NULL,                             # Becomes 1 - vjust
+  y = NULL,                             # Becoems hjust
+  hjust = 0.2,
+  vjust = 0.2,
   angle = 90,
   expand_x = TRUE,
   expand_y = TRUE,
@@ -477,9 +483,11 @@ display_tg(
 ``` r
 display_tg(
   "pineapple",
-  hjust = 0.5,
-  vjust = 0.5,
-  angle = 45,
+  x = NULL,                             # Becomes 1 - hjust
+  y = NULL,                             # Becomes 1 - vjust
+  hjust = 0.2,
+  vjust = 0.2,
+  angle = 180,
   expand_x = TRUE,
   expand_y = TRUE,
   margin = margin(20, 20, 20, 20),
@@ -493,9 +501,11 @@ display_tg(
 ``` r
 display_tg(
   "pineapple",
-  hjust = 0.5,
-  vjust = 0.5,
-  angle = 20,
+  x = NULL,                             # Becomes hjust
+  y = NULL,                             # Becomes vjust
+  hjust = 0.2,
+  vjust = 0.2,
+  angle = 220,
   expand_x = TRUE,
   expand_y = TRUE,
   margin = margin(20, 20, 20, 20),

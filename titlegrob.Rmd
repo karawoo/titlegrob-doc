@@ -324,7 +324,15 @@ gp <- gpar(fontsize = 20)
 ## First some simple titleGrobs
 display_tg("pineapple", hjust = 0, vjust = 0, gp = gp)
 display_tg("pineapple", hjust = 0, vjust = 0, angle = 45, gp = gp)
+```
 
+This is interesting --
+before [#2212](https://github.com/tidyverse/ggplot2/pull/2212) these appeared as
+just the word `pineapple` in the center of the image, because debugging output
+didn't work when `expand_x` and `expand_y` were false. Now the debugging works,
+but it's interesting that the point is all the way at the top left.
+
+```{r display-titlegrob-expand}
 ## Add expand_x, expand_y, and margins and view showGrob() overlay
 display_tg(
   "pineapple",
@@ -341,7 +349,7 @@ grid.ls(viewports = TRUE, fullnames = TRUE)
 
 The `grid.ls()` output shows that we beneath the root we have a `rect` and a
 viewport. Within the viewport is a child viewport as well as a `titleGrob` class
-object which has a text grob as a child.
+object which has the text grob and debugging grobs as children.
 
 ```{r childnames}
 ## childNames of a titleGrob object is the text object
@@ -428,13 +436,20 @@ display_tg(
 ```
 
 How do rotation and hjust/vjust interact? Things are likely to be weird given
-that the behavior is only explicitly defined when `angle` is 0, 90, 180, or 270.
+that there are special cases for when `angle` is 90, 180, or 270, and fallback
+behavior for every angle in between. 
+
+`titleGrob()` uses `hjust` and `vjust` to determine x and y position in when x/y
+are `NULL`. For all angles except 90, 180, and 270, it uses the value of `hjust`
+for x and `vjust` for y. Some examples:
 
 ```{r rotation-just}
 display_tg(
   "pineapple",
-  hjust = 0.5,
-  vjust = 0.5,
+  x = NULL,                             # Becomes 1 - vjust
+  y = NULL,                             # Becoems hjust
+  hjust = 0.2,
+  vjust = 0.2,
   angle = 90,
   expand_x = TRUE,
   expand_y = TRUE,
@@ -445,9 +460,11 @@ display_tg(
 
 display_tg(
   "pineapple",
-  hjust = 0.5,
-  vjust = 0.5,
-  angle = 45,
+  x = NULL,                             # Becomes 1 - hjust
+  y = NULL,                             # Becomes 1 - vjust
+  hjust = 0.2,
+  vjust = 0.2,
+  angle = 180,
   expand_x = TRUE,
   expand_y = TRUE,
   margin = margin(20, 20, 20, 20),
@@ -457,9 +474,11 @@ display_tg(
 
 display_tg(
   "pineapple",
-  hjust = 0.5,
-  vjust = 0.5,
-  angle = 20,
+  x = NULL,                             # Becomes hjust
+  y = NULL,                             # Becomes vjust
+  hjust = 0.2,
+  vjust = 0.2,
+  angle = 220,
   expand_x = TRUE,
   expand_y = TRUE,
   margin = margin(20, 20, 20, 20),
