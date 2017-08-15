@@ -71,7 +71,7 @@ sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0, vjust = 0, angle 
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.5, vjust = 0.5, angle = x))
 ```
 
-<img src="figs/trig/right-angles-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-4.png" width="50%" style="display: block; margin: auto;" />
+<img src="figs/trig/intermediate-angles-just-0.5-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0.5-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0.5-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0.5-4.png" width="50%" style="display: block; margin: auto;" />
 
     ## [[1]]
     ## NULL
@@ -89,7 +89,7 @@ sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.5, vjust = 0.5, an
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 1, vjust = 1, angle = x))
 ```
 
-<img src="figs/trig/intermediate-angles-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-4.png" width="50%" style="display: block; margin: auto;" />
+<img src="figs/trig/intermediate-angles-just-1-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-1-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-1-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-1-4.png" width="50%" style="display: block; margin: auto;" />
 
     ## [[1]]
     ## NULL
