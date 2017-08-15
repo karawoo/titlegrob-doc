@@ -37,35 +37,11 @@ sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0, vjust = 0, angle = 
 
 <img src="figs/trig/right-angles-just-0-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-4.png" width="50%" style="display: block; margin: auto;" />
 
-    ## [[1]]
-    ## NULL
-    ## 
-    ## [[2]]
-    ## NULL
-    ## 
-    ## [[3]]
-    ## NULL
-    ## 
-    ## [[4]]
-    ## NULL
-
 ``` r
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0, vjust = 0, angle = x))
 ```
 
 <img src="figs/trig/intermediate-angles-just-0-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-4.png" width="50%" style="display: block; margin: auto;" />
-
-    ## [[1]]
-    ## NULL
-    ## 
-    ## [[2]]
-    ## NULL
-    ## 
-    ## [[3]]
-    ## NULL
-    ## 
-    ## [[4]]
-    ## NULL
 
 ``` r
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.5, vjust = 0.5, angle = x))
@@ -73,35 +49,11 @@ sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.5, vjust = 0.5, an
 
 <img src="figs/trig/intermediate-angles-just-0.5-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0.5-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0.5-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0.5-4.png" width="50%" style="display: block; margin: auto;" />
 
-    ## [[1]]
-    ## NULL
-    ## 
-    ## [[2]]
-    ## NULL
-    ## 
-    ## [[3]]
-    ## NULL
-    ## 
-    ## [[4]]
-    ## NULL
-
 ``` r
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 1, vjust = 1, angle = x))
 ```
 
 <img src="figs/trig/intermediate-angles-just-1-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-1-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-1-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-1-4.png" width="50%" style="display: block; margin: auto;" />
-
-    ## [[1]]
-    ## NULL
-    ## 
-    ## [[2]]
-    ## NULL
-    ## 
-    ## [[3]]
-    ## NULL
-    ## 
-    ## [[4]]
-    ## NULL
 
 The above looks about right, but let's check when `hjust` and `vjust` are different values from one another.
 
@@ -111,35 +63,11 @@ sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0, vjust = 1, angle 
 
 <img src="figs/trig/intermediate-angles-just-0-and-1-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-and-1-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-and-1-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-and-1-4.png" width="50%" style="display: block; margin: auto;" />
 
-    ## [[1]]
-    ## NULL
-    ## 
-    ## [[2]]
-    ## NULL
-    ## 
-    ## [[3]]
-    ## NULL
-    ## 
-    ## [[4]]
-    ## NULL
-
 ``` r
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 1, vjust = 0, angle = x))
 ```
 
 <img src="figs/trig/intermediate-angles-just-1-and-0-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-1-and-0-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-1-and-0-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-1-and-0-4.png" width="50%" style="display: block; margin: auto;" />
-
-    ## [[1]]
-    ## NULL
-    ## 
-    ## [[2]]
-    ## NULL
-    ## 
-    ## [[3]]
-    ## NULL
-    ## 
-    ## [[4]]
-    ## NULL
 
 Some sample plots:
 ------------------

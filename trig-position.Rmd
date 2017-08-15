@@ -44,30 +44,30 @@ display_tg <- function(label = "pineapple", ...) {
 
 Using [this commit](https://github.com/karawoo/ggplot2/commit/c655de255247feb2bcebb16c421eed37a6f4ca10):
 
-```{r right-angles-just-0}
+```{r right-angles-just-0, results = "hide"}
 sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0, vjust = 0, angle = x))
 ```
 
-```{r intermediate-angles-just-0}
+```{r intermediate-angles-just-0, results = "hide"}
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0, vjust = 0, angle = x))
 ```
 
-```{r intermediate-angles-just-0.5}
+```{r intermediate-angles-just-0.5, results = "hide"}
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.5, vjust = 0.5, angle = x))
 ```
 
-```{r intermediate-angles-just-1}
+```{r intermediate-angles-just-1, results = "hide"}
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 1, vjust = 1, angle = x))
 ```
 
 The above looks about right, but let's check when `hjust` and `vjust` are
 different values from one another.
 
-```{r intermediate-angles-just-0-and-1}
+```{r intermediate-angles-just-0-and-1, results = "hide"}
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0, vjust = 1, angle = x))
 ```
 
-```{r intermediate-angles-just-1-and-0}
+```{r intermediate-angles-just-1-and-0, results = "hide"}
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 1, vjust = 0, angle = x))
 ```
 
