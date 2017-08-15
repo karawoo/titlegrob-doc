@@ -60,7 +60,18 @@ sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.5, vjust = 0.5, an
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 1, vjust = 1, angle = x))
 ```
 
-Some sample plots:
+The above looks about right, but let's check when `hjust` and `vjust` are
+different values from one another.
+
+```{r intermediate-angles-just-0-and-1}
+sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0, vjust = 1, angle = x))
+```
+
+```{r intermediate-angles-just-1-and-0}
+sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 1, vjust = 0, angle = x))
+```
+
+## Some sample plots:
 
 ```{r actual-plots, fig.asp = 0.618, out.width = "80%"}
 df <- data.frame(
