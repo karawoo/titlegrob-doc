@@ -19,7 +19,7 @@ display_tg <- function(label = "pineapple", ...) {
 }
 ```
 
-Using [this commit](https://github.com/karawoo/ggplot2/commit/3b42d0e941cc47f1231b5028b468a412d222e8fd):
+Using [this commit](https://github.com/karawoo/ggplot2/commit/ed1bcace71323cdd088c31de87679820c5b2339a):
 
 ``` r
 sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0, vjust = 0, angle = x))
@@ -93,6 +93,8 @@ sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.2, vjust = 0.6, an
     ## [[4]]
     ## NULL
 
+Some sample plots:
+
 ``` r
 df <- data.frame(
   x = 1:2,
@@ -113,3 +115,13 @@ base +
 ```
 
 <img src="figs/trig/actual-plots-1.png" width="60%" style="display: block; margin: auto;" />
+
+``` r
+base + 
+  theme(
+    strip.text.x = element_text(angle = 315, debug = TRUE),
+    axis.text.x = element_text(angle = -90)
+  )
+```
+
+<img src="figs/trig/actual-plots-2.png" width="60%" style="display: block; margin: auto;" />
