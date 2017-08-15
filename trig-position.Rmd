@@ -1,0 +1,51 @@
+---
+title: Testing position and rotation
+author: Kara Woo
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: github_document
+---
+
+```{r knitr-setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.path = "figs/trig/",
+                      fig.align = "center",
+                      fig.asp = 0.618,
+                      out.width = "60%")
+```
+
+Placement of strip text is incorrect when the text is at angles other than 0,
+90, 180, 270. Testing out some trigonometry to improve this.
+
+```{r }
+library("ggplot2")
+library("grid")
+```
+
+```{r }
+display_tg <- function(label = "pineapple", ...) {
+  tg <- ggplot2:::titleGrob(label, x = NULL, y = NULL, ..., debug = TRUE)
+  grid.newpage()
+  grid.rect()
+  grid.draw(tg)
+}
+```
+
+Using [this commit](https://github.com/karawoo/ggplot2/commit/3b42d0e941cc47f1231b5028b468a412d222e8fd):
+
+```{r right-angles-just-0}
+sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0, vjust = 0, angle = x))
+```
+
+```{r intermediate-angles-just-0}
+sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0, vjust = 0, angle = x))
+```
+
+```{r right-angles}
+sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0.2, vjust = 0.6, angle = x))
+```
+
+```{r intermediate-angles}
+sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.2, vjust = 0.6, angle = x))
+```

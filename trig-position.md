@@ -1,0 +1,94 @@
+Testing position and rotation
+================
+Kara Woo
+15 August, 2017
+
+Placement of strip text is incorrect when the text is at angles other than 0, 90, 180, 270. Testing out some trigonometry to improve this.
+
+``` r
+library("ggplot2")
+library("grid")
+```
+
+``` r
+display_tg <- function(label = "pineapple", ...) {
+  tg <- ggplot2:::titleGrob(label, x = NULL, y = NULL, ..., debug = TRUE)
+  grid.newpage()
+  grid.rect()
+  grid.draw(tg)
+}
+```
+
+Using [this commit](https://github.com/karawoo/ggplot2/commit/3b42d0e941cc47f1231b5028b468a412d222e8fd):
+
+``` r
+sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0, vjust = 0, angle = x))
+```
+
+<img src="figs/trig/right-angles-just-0-1.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-2.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-3.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-4.png" width="60%" style="display: block; margin: auto;" />
+
+    ## [[1]]
+    ## NULL
+    ## 
+    ## [[2]]
+    ## NULL
+    ## 
+    ## [[3]]
+    ## NULL
+    ## 
+    ## [[4]]
+    ## NULL
+
+``` r
+sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0, vjust = 0, angle = x))
+```
+
+<img src="figs/trig/intermediate-angles-just-0-1.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-2.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-3.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-4.png" width="60%" style="display: block; margin: auto;" />
+
+    ## [[1]]
+    ## NULL
+    ## 
+    ## [[2]]
+    ## NULL
+    ## 
+    ## [[3]]
+    ## NULL
+    ## 
+    ## [[4]]
+    ## NULL
+
+``` r
+sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0.2, vjust = 0.6, angle = x))
+```
+
+<img src="figs/trig/right-angles-1.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-2.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-3.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-4.png" width="60%" style="display: block; margin: auto;" />
+
+    ## [[1]]
+    ## NULL
+    ## 
+    ## [[2]]
+    ## NULL
+    ## 
+    ## [[3]]
+    ## NULL
+    ## 
+    ## [[4]]
+    ## NULL
+
+``` r
+sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.2, vjust = 0.6, angle = x))
+```
+
+<img src="figs/trig/intermediate-angles-1.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-2.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-3.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-4.png" width="60%" style="display: block; margin: auto;" />
+
+    ## [[1]]
+    ## NULL
+    ## 
+    ## [[2]]
+    ## NULL
+    ## 
+    ## [[3]]
+    ## NULL
+    ## 
+    ## [[4]]
+    ## NULL
