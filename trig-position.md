@@ -92,3 +92,24 @@ sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.2, vjust = 0.6, an
     ## 
     ## [[4]]
     ## NULL
+
+``` r
+df <- data.frame(
+  x = 1:2,
+  y = 1:2,
+  z = c("a", "aaaaaaabc"),
+  g = c("b", "bbbbbbbcd")
+)
+
+base <- ggplot(df, aes(x, y)) + 
+  geom_point() +
+  facet_grid(g ~ z)
+
+base + 
+  theme(
+    strip.text.x = element_text(hjust = 0, debug = TRUE),
+    strip.text.y = element_text(angle = 45, hjust = 0, debug = TRUE)
+  )
+```
+
+<img src="figs/trig/actual-plots-1.png" width="60%" style="display: block; margin: auto;" />
