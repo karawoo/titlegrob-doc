@@ -24,7 +24,7 @@ display_tg <- function(label = "pineapple", ...) {
   grid.rect()
   ## Draw tg in viewport that is smaller than the page (add_margins doesn't work
   ## for this)
-  pushViewport(viewport(w = 0.8, h = 0.8, clip = "on"))
+  pushViewport(viewport(w = 0.8, h = 0.8, clip = "off"))
   grid.draw(tg)
 }
 ```
