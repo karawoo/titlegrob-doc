@@ -3,7 +3,7 @@ Testing position and rotation
 Kara Woo
 15 August, 2017
 
-Placement of strip text is incorrect when the text is at angles other than 0, 90, 180, 270. Testing out some trigonometry to improve this.
+Placement of strip text is incorrect when the text is at angles other than 0, 90, 180, 270. Testing out some ways to improve this.
 
 ``` r
 library("ggplot2")
@@ -12,20 +12,30 @@ library("grid")
 
 ``` r
 display_tg <- function(label = "pineapple", ...) {
-  tg <- ggplot2:::titleGrob(label, x = NULL, y = NULL, ..., debug = TRUE)
+  tg <- ggplot2:::titleGrob(
+                    label,
+                    x = NULL,
+                    y = NULL,
+                    ...,
+                    debug = TRUE
+                  )
+  
   grid.newpage()
   grid.rect()
+  ## Draw tg in viewport that is smaller than the page (add_margins doesn't work
+  ## for this)
+  pushViewport(viewport(w = 0.8, h = 0.8, clip = "on"))
   grid.draw(tg)
 }
 ```
 
-Using [this commit](https://github.com/karawoo/ggplot2/commit/ed1bcace71323cdd088c31de87679820c5b2339a):
+Using [this commit](https://github.com/karawoo/ggplot2/commit/c655de255247feb2bcebb16c421eed37a6f4ca10):
 
 ``` r
 sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0, vjust = 0, angle = x))
 ```
 
-<img src="figs/trig/right-angles-just-0-1.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-2.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-3.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-4.png" width="60%" style="display: block; margin: auto;" />
+<img src="figs/trig/right-angles-just-0-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-just-0-4.png" width="50%" style="display: block; margin: auto;" />
 
     ## [[1]]
     ## NULL
@@ -43,7 +53,7 @@ sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0, vjust = 0, angle = 
 sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0, vjust = 0, angle = x))
 ```
 
-<img src="figs/trig/intermediate-angles-just-0-1.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-2.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-3.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-4.png" width="60%" style="display: block; margin: auto;" />
+<img src="figs/trig/intermediate-angles-just-0-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-just-0-4.png" width="50%" style="display: block; margin: auto;" />
 
     ## [[1]]
     ## NULL
@@ -58,10 +68,10 @@ sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0, vjust = 0, angle 
     ## NULL
 
 ``` r
-sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0.2, vjust = 0.6, angle = x))
+sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.5, vjust = 0.5, angle = x))
 ```
 
-<img src="figs/trig/right-angles-1.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-2.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-3.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-4.png" width="60%" style="display: block; margin: auto;" />
+<img src="figs/trig/right-angles-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/right-angles-4.png" width="50%" style="display: block; margin: auto;" />
 
     ## [[1]]
     ## NULL
@@ -76,10 +86,10 @@ sapply(c(0, 90, 180, 270), function(x) display_tg(hjust = 0.2, vjust = 0.6, angl
     ## NULL
 
 ``` r
-sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 0.2, vjust = 0.6, angle = x))
+sapply(c(45, 135, 225, 315), function(x) display_tg(hjust = 1, vjust = 1, angle = x))
 ```
 
-<img src="figs/trig/intermediate-angles-1.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-2.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-3.png" width="60%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-4.png" width="60%" style="display: block; margin: auto;" />
+<img src="figs/trig/intermediate-angles-1.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-2.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-3.png" width="50%" style="display: block; margin: auto;" /><img src="figs/trig/intermediate-angles-4.png" width="50%" style="display: block; margin: auto;" />
 
     ## [[1]]
     ## NULL
@@ -114,7 +124,7 @@ base +
   )
 ```
 
-<img src="figs/trig/actual-plots-1.png" width="60%" style="display: block; margin: auto;" />
+<img src="figs/trig/actual-plots-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 base + 
@@ -124,4 +134,4 @@ base +
   )
 ```
 
-<img src="figs/trig/actual-plots-2.png" width="60%" style="display: block; margin: auto;" />
+<img src="figs/trig/actual-plots-2.png" width="80%" style="display: block; margin: auto;" />
